@@ -42,20 +42,20 @@ def browser_init(context):
 
 
     ### Chrome ####
-    driver_path = ChromeDriverManager().install()
-    service = Service(driver_path)
-    context.driver = webdriver.Chrome(service=service)
-    context.driver.maximize_window()
+    # driver_path = ChromeDriverManager().install()
+    # service = Service(driver_path)
+    # context.driver = webdriver.Chrome(service=service)
+    # context.driver.maximize_window()
 
-    ### Headless Mode ####
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('headless')
-    # service = Service(ChromeDriverManager().install())
-    # context.driver = webdriver.Chrome(
-    #     options=options,
-    #     service=service
-    #  )
-    # context.driver.set_window_size(1920, 1080)
+    ## Headless Mode ####
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    service = Service(ChromeDriverManager().install())
+    context.driver = webdriver.Chrome(
+        options=options,
+        service=service
+     )
+    context.driver.set_window_size(1920, 1080)
 
     ### Firefox ####
     # driver_path = GeckoDriverManager().install()
