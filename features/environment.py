@@ -12,26 +12,25 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 def browser_init(context):
     """
-    Initializes the BrowserStack WebDriver for Behave tests.
 
     :param context: Behave context
     """
-    username = 'hadeelaltameemi_DKs0be'
-    access_key = 'jvAs1VKy5VjMLwZa2BLD'
-    options = Options()
-    options.set_capability('browserName', 'Chrome')
-    options.set_capability('browserVersion', 'latest')
-    options.set_capability('bstack:options', {
-        'os': 'Windows',
-        'osVersion': '10',
-        'projectName': 'Reelly POM Tests',
-        'buildName' : 'Reelly POM Tests',
-        'sessionName': 'Behave Test Session',
-        'debug': True,
-        'networkLogs': True,
-        'seleniumVersion':'4.0.0',
-        })
-    hub_url = f'http://{username}:{access_key}@hub-cloud.browserstack.com/wd/hub'
+    # username = 'hadeelaltameemi_DKs0be'
+    # access_key = 'jvAs1VKy5VjMLwZa2BLD'
+    # options = Options()
+    # options.set_capability('browserName', 'Chrome')
+    # options.set_capability('browserVersion', 'latest')
+    # options.set_capability('bstack:options', {
+    #     'os': 'Windows',
+    #     'osVersion': '10',
+    #     'projectName': 'Reelly POM Tests',
+    #     'buildName' : 'Reelly POM Tests',
+    #     'sessionName': 'Behave Test Session',
+    #     'debug': True,
+    #     'networkLogs': True,
+    #     'seleniumVersion':'4.0.0',
+    #     })
+    # hub_url = f'http://{username}:{access_key}@hub-cloud.browserstack.com/wd/hub'
 
 
 
@@ -43,10 +42,10 @@ def browser_init(context):
 
 
     ### Chrome ####
-    # driver_path = ChromeDriverManager().install()
-    # service = Service(driver_path)
-    # context.driver = webdriver.Chrome(service=service)
-    # context.driver.maximize_window()
+    driver_path = ChromeDriverManager().install()
+    service = Service(driver_path)
+    context.driver = webdriver.Chrome(service=service)
+    context.driver.maximize_window()
 
     ### Headless Mode ####
     # options = webdriver.ChromeOptions()
@@ -62,9 +61,9 @@ def browser_init(context):
     # driver_path = GeckoDriverManager().install()
     # service = Service(driver_path)
     # context.driver = webdriver.Firefox(service=service)
-
-    context.driver = webdriver.Remote(command_executor=hub_url, options=options)
-    context.driver.maximize_window()
+    #
+    # context.driver = webdriver.Remote(command_executor=hub_url, options=options)
+    # context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 30)
     context.app = Application(context.driver)
