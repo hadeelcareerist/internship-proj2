@@ -62,8 +62,9 @@ def browser_init(context):
     # driver_path = GeckoDriverManager().install()
     # service = Service(driver_path)
     # context.driver = webdriver.Firefox(service=service)
-    # context.driver.maximize_window()
+
     context.driver = webdriver.Remote(command_executor=hub_url, options=options)
+    context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 30)
     context.app = Application(context.driver)
