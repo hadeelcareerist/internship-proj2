@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
@@ -15,22 +16,22 @@ def browser_init(context):
 
     :param context: Behave context
     """
-    # username = 'hadeelaltameemi_DKs0be'
-    # access_key = 'jvAs1VKy5VjMLwZa2BLD'
-    # options = Options()
-    # options.set_capability('browserName', 'Chrome')
-    # options.set_capability('browserVersion', 'latest')
-    # options.set_capability('bstack:options', {
-    #     'os': 'Windows',
-    #     'osVersion': '10',
-    #     'projectName': 'Reelly POM Tests',
-    #     'buildName' : 'Reelly POM Tests',
-    #     'sessionName': 'Behave Test Session',
-    #     'debug': True,
-    #     'networkLogs': True,
-    #     'seleniumVersion':'4.0.0',
-    #     })
-    # hub_url = f'http://{username}:{access_key}@hub-cloud.browserstack.com/wd/hub'
+    username = 'hadeelaltameemi_DKs0be'
+    access_key = 'jvAs1VKy5VjMLwZa2BLD'
+    options = Options()
+    options.set_capability('browserName', 'Chrome')
+    options.set_capability('browserVersion', 'latest')
+    options.set_capability('bstack:options', {
+        'os': 'Windows',
+        'osVersion': '10',
+        'projectName': 'Reelly POM Tests',
+        'buildName' : 'Reelly POM Tests',
+        'sessionName': 'Behave Test Session',
+        'debug': True,
+        'networkLogs': True,
+        'seleniumVersion':'4.0.0',
+        })
+    hub_url = f'http://{username}:{access_key}@hub-cloud.browserstack.com/wd/hub'
 
 
 
@@ -48,22 +49,22 @@ def browser_init(context):
     # context.driver.maximize_window()
 
     ## Headless Mode ####
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    service = Service(ChromeDriverManager().install())
-    context.driver = webdriver.Chrome(
-        options=options,
-        service=service
-     )
-    context.driver.set_window_size(1920, 1080)
+    # options = webdriver.ChromeOptions()
+    # options.add_argument('headless')
+    # service = Service(ChromeDriverManager().install())
+    # context.driver = webdriver.Chrome(
+    #     options=options,
+    #     service=service
+    #  )
+    # context.driver.set_window_size(1920, 1080)
 
     ### Firefox ####
     # driver_path = GeckoDriverManager().install()
     # service = Service(driver_path)
     # context.driver = webdriver.Firefox(service=service)
     #
-    # context.driver = webdriver.Remote(command_executor=hub_url, options=options)
-    # context.driver.maximize_window()
+    context.driver = webdriver.Remote(command_executor=hub_url, options=options)
+    context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, 30)
     context.app = Application(context.driver)
@@ -72,6 +73,7 @@ def browser_init(context):
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)
     browser_init(context)
+    allure.dynamic.title(scenario.name) # allure test case started for ref
 
 
 def before_step(context, step):
